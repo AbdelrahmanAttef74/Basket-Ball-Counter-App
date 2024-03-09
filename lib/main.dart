@@ -1,4 +1,5 @@
 import 'package:basket_ball_counter/cubits/counter_cubit.dart';
+import 'package:basket_ball_counter/cubits/counter_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,7 +14,7 @@ class BasketballCounter extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => CounterCubit(),
-      child: const MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: HomePage(),
       ),
@@ -22,188 +23,201 @@ class BasketballCounter extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
+  int teamAPoints = 0;
+  int teamBPoints = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.orange,
-        title: const Text(
-          'Points Counter',
-          style: TextStyle(
-            color: Colors.white,
+    return BlocConsumer<CounterCubit, CounterState>(
+      listener: (context, state) {
+        if (state is TeamAIncreamentState) {
+          teamAPoints = BlocProvider.of<CounterCubit>(context).teamAPoints;
+        } else {
+          teamBPoints = BlocProvider.of<CounterCubit>(context).teamBPoints;
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.orange,
+            title: const Text(
+              'Points Counter',
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
           ),
-        ),
-      ),
-      body: Column(
-        children: [
-          const SizedBox(
-            height: 32,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          body: Column(
             children: [
-              Column(
+              const SizedBox(
+                height: 32,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const Text(
-                    'Team A',
-                    style: TextStyle(fontSize: 32),
-                  ),
-                  const Text(
-                    '0',
-                    style: TextStyle(fontSize: 120),
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orange,
-                      minimumSize: const Size(150, 50),
-                      shape: const BeveledRectangleBorder(),
-                    ),
-                    onPressed: () {},
-                    child: const Text(
-                      'add 1 Point',
-                      style: TextStyle(
-                        fontSize: 22,
-                        color: Colors.black,
+                  Column(
+                    children: [
+                      const Text(
+                        'Team A',
+                        style: TextStyle(fontSize: 32),
                       ),
-                    ),
+                      const Text(
+                        '0',
+                        style: TextStyle(fontSize: 120),
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.orange,
+                          minimumSize: const Size(150, 50),
+                          shape: const BeveledRectangleBorder(),
+                        ),
+                        onPressed: () {},
+                        child: const Text(
+                          'add 1 Point',
+                          style: TextStyle(
+                            fontSize: 22,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.orange,
+                          minimumSize: const Size(150, 50),
+                          shape: const BeveledRectangleBorder(),
+                        ),
+                        onPressed: () {},
+                        child: const Text(
+                          'add 2 Point',
+                          style: TextStyle(
+                            fontSize: 22,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.orange,
+                          minimumSize: const Size(150, 50),
+                          shape: const BeveledRectangleBorder(),
+                        ),
+                        onPressed: () {},
+                        child: const Text(
+                          'add 3 Point',
+                          style: TextStyle(
+                            fontSize: 22,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                    ],
                   ),
                   const SizedBox(
-                    height: 16,
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orange,
-                      minimumSize: const Size(150, 50),
-                      shape: const BeveledRectangleBorder(),
+                    height: 300,
+                    child: VerticalDivider(
+                      thickness: 1,
                     ),
-                    onPressed: () {},
-                    child: const Text(
-                      'add 2 Point',
-                      style: TextStyle(
-                        fontSize: 22,
-                        color: Colors.black,
+                  ),
+                  Column(
+                    children: [
+                      const Text(
+                        'Team B',
+                        style: TextStyle(fontSize: 32),
                       ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orange,
-                      minimumSize: const Size(150, 50),
-                      shape: const BeveledRectangleBorder(),
-                    ),
-                    onPressed: () {},
-                    child: const Text(
-                      'add 3 Point',
-                      style: TextStyle(
-                        fontSize: 22,
-                        color: Colors.black,
+                      const Text(
+                        '0',
+                        style: TextStyle(fontSize: 120),
                       ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 16,
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.orange,
+                          minimumSize: const Size(150, 50),
+                          shape: const BeveledRectangleBorder(),
+                        ),
+                        onPressed: () {},
+                        child: const Text(
+                          'add 1 Point',
+                          style: TextStyle(
+                            fontSize: 22,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.orange,
+                          minimumSize: const Size(150, 50),
+                          shape: const BeveledRectangleBorder(),
+                        ),
+                        onPressed: () {},
+                        child: const Text(
+                          'add 2 Point',
+                          style: TextStyle(
+                            fontSize: 22,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.orange,
+                          minimumSize: const Size(150, 50),
+                          shape: const BeveledRectangleBorder(),
+                        ),
+                        onPressed: () {},
+                        child: const Text(
+                          'add 3 Point',
+                          style: TextStyle(
+                            fontSize: 22,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                    ],
                   ),
                 ],
               ),
               const SizedBox(
-                height: 300,
-                child: VerticalDivider(
-                  thickness: 1,
-                ),
+                height: 45,
               ),
-              Column(
-                children: [
-                  const Text(
-                    'Team B',
-                    style: TextStyle(fontSize: 32),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.orange,
+                  minimumSize: const Size(150, 50),
+                  shape: const BeveledRectangleBorder(),
+                ),
+                onPressed: () {},
+                child: const Text(
+                  'Reset',
+                  style: TextStyle(
+                    fontSize: 22,
+                    color: Colors.black,
                   ),
-                  const Text(
-                    '0',
-                    style: TextStyle(fontSize: 120),
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orange,
-                      minimumSize: const Size(150, 50),
-                      shape: const BeveledRectangleBorder(),
-                    ),
-                    onPressed: () {},
-                    child: const Text(
-                      'add 1 Point',
-                      style: TextStyle(
-                        fontSize: 22,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orange,
-                      minimumSize: const Size(150, 50),
-                      shape: const BeveledRectangleBorder(),
-                    ),
-                    onPressed: () {},
-                    child: const Text(
-                      'add 2 Point',
-                      style: TextStyle(
-                        fontSize: 22,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orange,
-                      minimumSize: const Size(150, 50),
-                      shape: const BeveledRectangleBorder(),
-                    ),
-                    onPressed: () {},
-                    child: const Text(
-                      'add 3 Point',
-                      style: TextStyle(
-                        fontSize: 22,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                ],
+                ),
               ),
             ],
           ),
-          const SizedBox(
-            height: 45,
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.orange,
-              minimumSize: const Size(150, 50),
-              shape: const BeveledRectangleBorder(),
-            ),
-            onPressed: () {},
-            child: const Text(
-              'Reset',
-              style: TextStyle(
-                fontSize: 22,
-                color: Colors.black,
-              ),
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
