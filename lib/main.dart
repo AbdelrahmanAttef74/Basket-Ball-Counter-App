@@ -1,25 +1,31 @@
+import 'package:basket_ball_counter/cubits/counter_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(const BasketballCounter());
 }
 
-class BasketballCounter extends StatefulWidget {
+class BasketballCounter extends StatelessWidget {
   const BasketballCounter({super.key});
 
   @override
-  State<BasketballCounter> createState() => _BasketballCounterState();
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: HomePage(),
+    );
+  }
 }
 
-class _BasketballCounterState extends State<BasketballCounter> {
-  int teamAPoints = 0;
-
-  int teamBPoints = 0;
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return BlocProvider(
+      create: (context) => CounterCubit(),
+      child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.orange,
           title: const Text(
@@ -43,9 +49,9 @@ class _BasketballCounterState extends State<BasketballCounter> {
                       'Team A',
                       style: TextStyle(fontSize: 32),
                     ),
-                    Text(
-                      '$teamAPoints',
-                      style: const TextStyle(fontSize: 120),
+                    const Text(
+                      '0',
+                      style: TextStyle(fontSize: 120),
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -53,11 +59,7 @@ class _BasketballCounterState extends State<BasketballCounter> {
                         minimumSize: const Size(150, 50),
                         shape: const BeveledRectangleBorder(),
                       ),
-                      onPressed: () {
-                        setState(() {
-                          teamAPoints++;
-                        });
-                      },
+                      onPressed: () {},
                       child: const Text(
                         'add 1 Point',
                         style: TextStyle(
@@ -75,11 +77,7 @@ class _BasketballCounterState extends State<BasketballCounter> {
                         minimumSize: const Size(150, 50),
                         shape: const BeveledRectangleBorder(),
                       ),
-                      onPressed: () {
-                        setState(() {
-                          teamAPoints += 2;
-                        });
-                      },
+                      onPressed: () {},
                       child: const Text(
                         'add 2 Point',
                         style: TextStyle(
@@ -97,11 +95,7 @@ class _BasketballCounterState extends State<BasketballCounter> {
                         minimumSize: const Size(150, 50),
                         shape: const BeveledRectangleBorder(),
                       ),
-                      onPressed: () {
-                        setState(() {
-                          teamAPoints += 3;
-                        });
-                      },
+                      onPressed: () {},
                       child: const Text(
                         'add 3 Point',
                         style: TextStyle(
@@ -127,9 +121,9 @@ class _BasketballCounterState extends State<BasketballCounter> {
                       'Team B',
                       style: TextStyle(fontSize: 32),
                     ),
-                    Text(
-                      '$teamBPoints',
-                      style: const TextStyle(fontSize: 120),
+                    const Text(
+                      '0',
+                      style: TextStyle(fontSize: 120),
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -137,11 +131,7 @@ class _BasketballCounterState extends State<BasketballCounter> {
                         minimumSize: const Size(150, 50),
                         shape: const BeveledRectangleBorder(),
                       ),
-                      onPressed: () {
-                        setState(() {
-                          teamBPoints++;
-                        });
-                      },
+                      onPressed: () {},
                       child: const Text(
                         'add 1 Point',
                         style: TextStyle(
@@ -159,11 +149,7 @@ class _BasketballCounterState extends State<BasketballCounter> {
                         minimumSize: const Size(150, 50),
                         shape: const BeveledRectangleBorder(),
                       ),
-                      onPressed: () {
-                        setState(() {
-                          teamBPoints += 2;
-                        });
-                      },
+                      onPressed: () {},
                       child: const Text(
                         'add 2 Point',
                         style: TextStyle(
@@ -181,11 +167,7 @@ class _BasketballCounterState extends State<BasketballCounter> {
                         minimumSize: const Size(150, 50),
                         shape: const BeveledRectangleBorder(),
                       ),
-                      onPressed: () {
-                        setState(() {
-                          teamBPoints += 3;
-                        });
-                      },
+                      onPressed: () {},
                       child: const Text(
                         'add 3 Point',
                         style: TextStyle(
@@ -210,12 +192,7 @@ class _BasketballCounterState extends State<BasketballCounter> {
                 minimumSize: const Size(150, 50),
                 shape: const BeveledRectangleBorder(),
               ),
-              onPressed: () {
-                setState(() {
-                  teamAPoints = 0;
-                  teamBPoints = 0;
-                });
-              },
+              onPressed: () {},
               child: const Text(
                 'Reset',
                 style: TextStyle(
