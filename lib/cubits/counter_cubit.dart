@@ -17,4 +17,10 @@ class CounterCubit extends Cubit<CounterState> {
       emit(TeamBIncreamentState());
     }
   }
+
+  void counterReset({required int buttomNumber}) {
+    teamAPoints = buttomNumber;
+    teamBPoints = buttomNumber;
+    emit(CounterResetState());
+  }
 }

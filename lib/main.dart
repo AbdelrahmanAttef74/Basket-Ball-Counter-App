@@ -14,7 +14,7 @@ class BasketballCounter extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => CounterCubit(),
-      child: MaterialApp(
+      child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: HomePage(),
       ),
@@ -23,19 +23,14 @@ class BasketballCounter extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  HomePage({super.key});
-  int teamAPoints = 0;
-  int teamBPoints = 0;
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<CounterCubit, CounterState>(
       listener: (context, state) {
         if (state is TeamAIncreamentState) {
-          teamAPoints = BlocProvider.of<CounterCubit>(context).teamAPoints;
-        } else {
-          teamBPoints = BlocProvider.of<CounterCubit>(context).teamBPoints;
-        }
+        } else {}
       },
       builder: (context, state) {
         return Scaffold(
@@ -62,9 +57,9 @@ class HomePage extends StatelessWidget {
                         'Team A',
                         style: TextStyle(fontSize: 32),
                       ),
-                      const Text(
-                        '0',
-                        style: TextStyle(fontSize: 120),
+                      Text(
+                        '${BlocProvider.of<CounterCubit>(context).teamAPoints}',
+                        style: const TextStyle(fontSize: 120),
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -72,7 +67,10 @@ class HomePage extends StatelessWidget {
                           minimumSize: const Size(150, 50),
                           shape: const BeveledRectangleBorder(),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          BlocProvider.of<CounterCubit>(context)
+                              .teamIncreament(team: 'A', buttonNumber: 1);
+                        },
                         child: const Text(
                           'add 1 Point',
                           style: TextStyle(
@@ -90,7 +88,10 @@ class HomePage extends StatelessWidget {
                           minimumSize: const Size(150, 50),
                           shape: const BeveledRectangleBorder(),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          BlocProvider.of<CounterCubit>(context)
+                              .teamIncreament(team: 'A', buttonNumber: 2);
+                        },
                         child: const Text(
                           'add 2 Point',
                           style: TextStyle(
@@ -108,7 +109,10 @@ class HomePage extends StatelessWidget {
                           minimumSize: const Size(150, 50),
                           shape: const BeveledRectangleBorder(),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          BlocProvider.of<CounterCubit>(context)
+                              .teamIncreament(team: 'A', buttonNumber: 3);
+                        },
                         child: const Text(
                           'add 3 Point',
                           style: TextStyle(
@@ -134,9 +138,9 @@ class HomePage extends StatelessWidget {
                         'Team B',
                         style: TextStyle(fontSize: 32),
                       ),
-                      const Text(
-                        '0',
-                        style: TextStyle(fontSize: 120),
+                      Text(
+                        '${BlocProvider.of<CounterCubit>(context).teamBPoints}',
+                        style: const TextStyle(fontSize: 120),
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -144,7 +148,10 @@ class HomePage extends StatelessWidget {
                           minimumSize: const Size(150, 50),
                           shape: const BeveledRectangleBorder(),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          BlocProvider.of<CounterCubit>(context)
+                              .teamIncreament(team: 'B', buttonNumber: 1);
+                        },
                         child: const Text(
                           'add 1 Point',
                           style: TextStyle(
@@ -162,7 +169,10 @@ class HomePage extends StatelessWidget {
                           minimumSize: const Size(150, 50),
                           shape: const BeveledRectangleBorder(),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          BlocProvider.of<CounterCubit>(context)
+                              .teamIncreament(team: 'B', buttonNumber: 2);
+                        },
                         child: const Text(
                           'add 2 Point',
                           style: TextStyle(
@@ -180,7 +190,10 @@ class HomePage extends StatelessWidget {
                           minimumSize: const Size(150, 50),
                           shape: const BeveledRectangleBorder(),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          BlocProvider.of<CounterCubit>(context)
+                              .teamIncreament(team: 'B', buttonNumber: 3);
+                        },
                         child: const Text(
                           'add 3 Point',
                           style: TextStyle(
@@ -205,7 +218,10 @@ class HomePage extends StatelessWidget {
                   minimumSize: const Size(150, 50),
                   shape: const BeveledRectangleBorder(),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  BlocProvider.of<CounterCubit>(context)
+                      .counterReset(buttomNumber: 0);
+                },
                 child: const Text(
                   'Reset',
                   style: TextStyle(
